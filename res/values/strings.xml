@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="app_name">DMA Truth or Dare</string>
+	<string name="menu_main_menu">Main Menu</string>
+	<string name="menu_rate_this">Rate this app!</string>
+	<string name="menu_about">About</string>
+</resources>

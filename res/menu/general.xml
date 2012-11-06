@@ -1,0 +1,14 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_main_menu"
+        android:title="@string/menu_main_menu"
+        android:orderInCategory="200"
+        android:showAsAction="never"/>
+    <item android:id="@+id/menu_rate_this"
+        android:title="@string/menu_rate_this"
+        android:orderInCategory="1400"
+        android:showAsAction="never"/>  
+    <item android:id="@+id/menu_about"
+        android:title="@string/menu_about"
+        android:orderInCategory="300"
+        android:showAsAction="never"/>       
+</menu>
