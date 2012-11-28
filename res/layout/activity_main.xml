@@ -14,7 +14,7 @@
 	        android:id="@+id/viewerText"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Middle School"
+	        android:text="Welcome To Truth or Dare"
 	        android:textSize="60dp"
 	        android:layout_marginTop="10dp"
 	        android:layout_gravity="center"
@@ -30,27 +30,25 @@
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:orientation="vertical" >      
-        
-	    <Button
-	            android:id="@+id/main_truth_button"
-	            style="@style/ButtonText"
-	            android:background="@drawable/dma_button"
-	            android:text="Truth" />
-	    <TextView
-	        android:id="@+id/viewerText"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Or"
-	        android:textSize="30dp"
-	        android:layout_marginTop="10dp"
-	        android:layout_marginBottom="10dp"
-	        android:layout_gravity="center"
-	        android:gravity="center" />
-		<Button
-            android:id="@+id/main_dare_button"
-            style="@style/ButtonText"
-            android:background="@drawable/dma_button"
-            android:text="Dare" />
+        android:orientation="vertical" >
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/main_play_button"
+        style="@style/ButtonText"
+        android:layout_below="@+id/main_buttonFrame"
+        android:layout_centerHorizontal="true"
+		android:layout_margin="10dp"
+        android:background="@drawable/dma_button"
+        android:text="Play" />
+    <Button
+        android:id="@+id/main_timer_button"
+        style="@style/ButtonText"
+        android:layout_below="@+id/main_play_button"
+        android:layout_centerHorizontal="true"
+		android:layout_margin="10dp"
+        android:background="@drawable/dma_button"
+        android:text="Set Timer" />
+
 </RelativeLayout>

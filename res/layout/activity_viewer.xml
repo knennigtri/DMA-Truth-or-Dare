@@ -3,14 +3,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <LinearLayout
+        android:id="@+id/viewer_layout03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" 
+        android:layout_margin="5dp">
+          <TextView
+	            android:id="@+id/clockText"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="00:00"
+	            android:layout_weight="1"
+	            android:textSize="30dp" 
+	            android:layout_gravity="center"/>
+	    <LinearLayout
+	        android:id="@+id/viewer_layout02"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:orientation="horizontal" 
+	        android:layout_margin="5dp">	
+	        <Button
+	            android:id="@+id/viewer_next_button"
+	            style="@style/ViewerButtonText"
+	            android:background="@drawable/dma_button"
+	            android:text="Next Player"/>
+	        <Button
+	            android:id="@+id/viewer_share_button"
+	            style="@style/ViewerButtonText"
+	            android:background="@drawable/dma_button"
+	            android:text="Share!" />
+	    </LinearLayout>
+	</LinearLayout>
+	
     <TextView
-        android:id="@+id/viewerText"
+        android:id="@+id/viewer_playerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:text="Name"
+        android:textSize="30dp" />
+
+    <TextView
+        android:id="@+id/viewer_todText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/viewer_playerText"
+        android:layout_marginTop="93dp"
+        android:gravity="center_horizontal"
         android:text="Truth Or Dare"
-        android:textSize="30dp"
-        tools:context=".ViewerActivity" />
+        android:textSize="35dp" />
+
+    <TextView
+        android:id="@+id/viewer_todDescriptionText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewer_todText"
+        android:layout_centerHorizontal="true"
+        android:text="Description"
+        android:textSize="20dp" />
 
 </RelativeLayout>
