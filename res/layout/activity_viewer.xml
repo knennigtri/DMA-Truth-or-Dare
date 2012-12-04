@@ -46,7 +46,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="Name"
-        android:textSize="30dp" />
+        android:textSize="40dp" />
 
     <TextView
         android:id="@+id/viewer_todText"

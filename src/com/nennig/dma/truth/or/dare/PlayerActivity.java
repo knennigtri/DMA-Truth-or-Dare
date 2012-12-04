@@ -10,8 +10,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -187,7 +189,26 @@ public class PlayerActivity extends ListActivity {
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_player, menu);
+        getMenuInflater().inflate(R.menu.general, menu);
         return true;
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()){
+    	case R.id.menu_main_menu:
+    		startActivity(new Intent(this, MainActivity.class));
+    		finish();
+    		return true;
+    	case R.id.menu_about: //TODO Settings page
+    		BaseActivity.aboutAlert(this);
+    		return true;
+    	case R.id.menu_rate_this:
+    		String str ="https://play.google.com/store/apps/details?id=com.nennig.photomem";
+    		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
+    		return true;
+    	default:
+    		return super.onOptionsItemSelected(item);
+    	}
     }
 }

@@ -1,5 +1,6 @@
 package com.nennig.dma.truth.or.dare;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -26,6 +28,7 @@ import android.widget.Toast;
 
 public class ViewerActivity extends BaseActivity implements SensorEventListener {
 	private static final String TAG = "com.nennig.dma.truth.or.dare.ToD";
+	private static final String _NEW_ROUND_TITLE = "Truth or Dare?";
 	private int _cdSeconds;
 
 	private Sensor myShakeSensor;
@@ -35,12 +38,13 @@ public class ViewerActivity extends BaseActivity implements SensorEventListener 
 	TextView todText, todDescText, playerNameText, timer;
 	private List<String> _players;
 	
-	
+	ToDDB db;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewer);
+        db = new ToDDB(ViewerActivity.this, "db.csv");
         
         // get sensor manager
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -56,37 +60,14 @@ public class ViewerActivity extends BaseActivity implements SensorEventListener 
         
     	loadPreferences();
         setNewPlayer();
-        
-        
-        final CountDownTimer toDTimer = createTimer();
-        toDTimer.start();
 
-//        String tOd = getIntent().getStringExtra(TRUTH_OR_DARE);
-//        
-//        Log.d("viewer", "Value is: " + tOd);
-//        
-//        if(tOd.equals(TRUTH))
-//        {
-//        	_truth = true;
-//        	_dare = false;
-//        }
-//        else if(tOd.equals(DARE))
-//        {
-//        	_dare = true;
-//        	_truth = false;
-//        }
-        
-//        TextView todDesc = (TextView) findViewById(R.id.viewer_todDescriptionText);
-//        if(_truth)
-//        	todDesc.setText("Say the last person you texted");
-//        if(_dare)
-//        	todDesc.setText("Sing I'm a little tea pot with actions.");
-//        
+        final CountDownTimer toDTimer = createTimer();
+        toDTimer.start();        
         
         shareButton.setOnClickListener(new Button.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				//TODO Share Procedure
+				shareIt();
 			}	
         });
         
@@ -94,12 +75,25 @@ public class ViewerActivity extends BaseActivity implements SensorEventListener 
 			@Override
 			public void onClick(View arg0) {
 				setNewPlayer();
-				todText.setText("Truth or Dare?");
+				todText.setText(_NEW_ROUND_TITLE);
+				todText.setTextColor(Color.GRAY);
 				todDescText.setText("Shake to find out!");
+				todDescText.setTextColor(Color.GRAY);
 				toDTimer.cancel();
 				toDTimer.start();
 			}	
         }); 
+    }
+    
+    private void shareIt() {
+    	Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+    	sharingIntent.setType("text/plain");
+    	String shareBody = playerNameText.getText() + " just did this " + todText.getText() + ": " + todDescText.getText();
+
+    	sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "ToD");
+    	sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+    	
+    	startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
     
     private CountDownTimer createTimer(){
@@ -133,43 +127,29 @@ public class ViewerActivity extends BaseActivity implements SensorEventListener 
     	_players.addAll(Arrays.asList(playersStr.split(",")));
     	
     	_cdSeconds = settings.getInt(CD_IN_SECONDS, 30);
-    }
-    
-//    private void createTimer(){
-//    	final TextView timer = (TextView) findViewById(R.id.clockText);
-//        CountDownTimer cDT = new CountDownTimer((_minTimer*60+_secTimer)*1000, 1000) {
-//
-//            public void onTick(long millisUF) {
-//            	int sec = (int) (millisUF/1000);
-//            	if(sec<60)
-//            		if(sec<10)
-//            			timer.setText("00:0"+sec);
-//            		else
-//            			timer.setText("00:"+sec);
-//            	else
-//            	{	
-//            		int min = sec/60;
-//            		sec = sec%60;
-//            		timer.setText(min+":"+sec);
-//            	}
-//            }
-//
-//            public void onFinish() {
-//                timer.setText("Time's Up!");
-//            }
-//         }.start();
-//    }    
+    }  
     
     public void nextQuestion(){
-    	String newToD, newToDDesc;
-    	newToD = "";
-    	newToDDesc = "";
-    	
-    	//TODO Query new ToD Question
-    	
-    	todText.setText(newToD);
-    	todDescText.setText(newToDDesc);
-    	
+    	if(todText.getText().equals(_NEW_ROUND_TITLE)){
+	    	String[] tod = db.getToD();
+	    	
+	    	String newToD, newToDDesc;
+	    	newToD = tod[0];
+	    	newToDDesc = tod[1];
+	    	
+	    	//TODO Query new ToD Question
+	    	
+	    	todText.setText(newToD);
+	    	todDescText.setText(newToDDesc);
+	    	
+	    	if(newToD.equals("Truth")){
+	    		todText.setTextColor(Color.BLUE);
+	    		todDescText.setTextColor(Color.MAGENTA);
+	    	}else{
+	    		todText.setTextColor(Color.MAGENTA);
+	    		todDescText.setTextColor(Color.BLUE);
+	    	}
+    	}
     }
     
     @Override

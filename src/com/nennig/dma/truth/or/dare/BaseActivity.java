@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.MenuItem;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -47,24 +48,29 @@ public class BaseActivity extends Activity {
     	{	
     		int min = sec/60;
     		sec = sec%60;
-    		time =  min+":"+sec;
+    		if(sec<10)
+    			time = min+":0"+sec;
+    		else
+    			time = min + ":"+sec;
     	}
-    	Log.d(TAG, "SecToString: " + time);
+ //   	Log.d(TAG, "SecToString: " + time);
     	return time;
     }
     
-    public void aboutAlert(Context c){
+    public static void aboutAlert(final Activity c){
     	AlertDialog.Builder alert = new AlertDialog.Builder(c); 
 
         alert.setTitle("About"); 
-        alert.setMessage("Copywrite @ 2012 Kevin Nennig");
+        alert.setMessage("This application was created by De Marillac Academy during an enrichment class. " +
+        		"Students on the team included: " +
+        		"Student1, Student2, Student3. Copywrite @ 2012 Kevin Nennig");
         
         alert.setPositiveButton("View Site", new DialogInterface.OnClickListener() { 
             public void onClick(DialogInterface dialog, int whichButton) { 
-            	String url = "https://sites.google.com/site/nennigk/personal-projects/name-that";
+            	String url = "http://www2.demarillac.org/index.php";
             	Intent i = new Intent(Intent.ACTION_VIEW);
             	i.setData(Uri.parse(url));
-            	BaseActivity.this.startActivity(i);
+            	c.startActivity(i);
             } 
         }); 
         
@@ -75,4 +81,23 @@ public class BaseActivity extends Activity {
       }); 
       alert.show();
     }    
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch(item.getItemId()){
+    	case R.id.menu_main_menu:
+    		startActivity(new Intent(this, MainActivity.class));
+    		finish();
+    		return true;
+    	case R.id.menu_about: //TODO Settings page
+    		aboutAlert(this);
+    		return true;
+    	case R.id.menu_rate_this:
+    		String str ="https://play.google.com/store/apps/details?id=com.nennig.dma.truth.or.dare";
+    		startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
+    		return true;
+    	default:
+    		return super.onOptionsItemSelected(item);
+    	}
+    }
 }
