@@ -1,15 +1,14 @@
 package com.nennig.dma.truth.or.dare;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.MenuItem;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 
 public class BaseActivity extends Activity {
 	public static final String PLAYERS = "com.nennig.dma.truth.or.dare.PLAYERS";
@@ -63,7 +62,7 @@ public class BaseActivity extends Activity {
         alert.setTitle("About"); 
         alert.setMessage("This application was created by De Marillac Academy during an enrichment class. " +
         		"Students on the team included: " +
-        		"Student1, Student2, Student3. Copywrite @ 2012 Kevin Nennig");
+        		"Glydel Chua, Serra Er, Vince Dizon, and Julian Cisneros. Copywrite @ 2012 Kevin Nennig");
         
         alert.setPositiveButton("View Site", new DialogInterface.OnClickListener() { 
             public void onClick(DialogInterface dialog, int whichButton) { 

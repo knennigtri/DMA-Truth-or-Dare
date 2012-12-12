@@ -1,8 +1,6 @@
 package com.nennig.dma.truth.or.dare;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -10,7 +8,6 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.util.Log;
-import au.com.bytecode.opencsv.CSVReader;
 	
 
 class ToDDB {

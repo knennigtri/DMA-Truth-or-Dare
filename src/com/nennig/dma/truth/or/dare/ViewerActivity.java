@@ -1,34 +1,29 @@
 package com.nennig.dma.truth.or.dare;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Vibrator;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
-import android.hardware.SensorListener;
 import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ViewerActivity extends BaseActivity implements SensorEventListener {
 	private static final String TAG = "com.nennig.dma.truth.or.dare.ToD";
 	private static final String _NEW_ROUND_TITLE = "Truth or Dare?";
+	private static final String _NEW_ROUND_DESC = "Shake to find out!";
 	private int _cdSeconds;
 
 	private Sensor myShakeSensor;
@@ -39,6 +34,7 @@ public class ViewerActivity extends BaseActivity implements SensorEventListener 
 	private List<String> _players;
 	
 	ToDDB db;
+	CountDownTimer toDTimer;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,10 +55,11 @@ public class ViewerActivity extends BaseActivity implements SensorEventListener 
     	timer = (TextView) findViewById(R.id.clockText);
         
     	loadPreferences();
-        setNewPlayer();
+    	toDTimer = createTimer();
+    	setNewPlayer();
 
-        final CountDownTimer toDTimer = createTimer();
-        toDTimer.start();        
+        
+     //   toDTimer.start();        
         
         shareButton.setOnClickListener(new Button.OnClickListener() {
 			@Override
@@ -75,12 +72,6 @@ public class ViewerActivity extends BaseActivity implements SensorEventListener 
 			@Override
 			public void onClick(View arg0) {
 				setNewPlayer();
-				todText.setText(_NEW_ROUND_TITLE);
-				todText.setTextColor(Color.GRAY);
-				todDescText.setText("Shake to find out!");
-				todDescText.setTextColor(Color.GRAY);
-				toDTimer.cancel();
-				toDTimer.start();
 			}	
         }); 
     }
@@ -116,6 +107,13 @@ public class ViewerActivity extends BaseActivity implements SensorEventListener 
         int i = random.nextInt(_players.size());
         String player = _players.get(i);
         playerNameText.setText(player);
+        
+        todText.setText(_NEW_ROUND_TITLE);
+		todText.setTextColor(Color.GRAY);
+		todDescText.setText(_NEW_ROUND_DESC);
+		todDescText.setTextColor(Color.GRAY);
+		toDTimer.cancel();
+		toDTimer.start();
     }
     
     private void loadPreferences(){

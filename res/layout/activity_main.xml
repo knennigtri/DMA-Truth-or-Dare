@@ -14,7 +14,7 @@
 	        android:id="@+id/viewerText"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="Welcome To Truth or Dare"
+	        android:text="Welcome to Truth or Dare"
 	        android:textSize="60dp"
 	        android:layout_marginTop="10dp"
 	        android:layout_gravity="center"
